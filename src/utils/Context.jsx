@@ -10,6 +10,7 @@ export const ContextProvider = ({ children }) => {
     const [boycottState, setBoycottState] = useState(false);
     const [badArtistsArray, setBadArtistsArray] = useState(['']);
     const [newArtist, setNewArtists] = useState('');
+    const [accessToken, setAccessToken] = useState('');
     const [loading, setLoading] = useState(true);
 
 
@@ -22,6 +23,7 @@ export const ContextProvider = ({ children }) => {
             boycottState, setBoycottState,
             badArtistsArray, setBadArtistsArray,
             newArtist, setNewArtists,
+            accessToken, setAccessToken,
             loading, setLoading,
         }}>
             {children}

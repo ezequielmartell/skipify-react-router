@@ -11,8 +11,6 @@ function callback() {
     console.log("Verifying code")
     console.log(code)
     codeAuth(code)
-    // window.history.replaceState("", "", "/home/");
-    // This is being called twice, need to figure out why
     return <Navigate to="/" state={{ from: location }} replace />
 }
 

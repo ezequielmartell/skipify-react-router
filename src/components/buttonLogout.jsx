@@ -5,14 +5,13 @@ import { isResponseOk } from '../utils/Utils';
 import { Context } from '../utils/Context';
 
 const url = import.meta.env.VITE_APP_URL
-const credentials = import.meta.env.VITE_APP_CREDENTIALS
 
 function LogoutComponent() {
     const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
     function logout() {
         fetch(`${url}/api/logout`, {
-            credentials: "include",
+            credentials: import.meta.env.PROD ? "same-origin" : "include",
         })
             .then(isResponseOk)
             .then((data) => {
@@ -27,7 +26,7 @@ function LogoutComponent() {
     }
 
     return (<li>
-        <button onClick={logout}>Log out</button>
+        <button onClick={logout}>Logout</button>
     </li>)
 }
 

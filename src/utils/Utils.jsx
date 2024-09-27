@@ -1,10 +1,11 @@
 import queryString from 'query-string';
+import { useNavigate, useLocation } from "react-router-dom";
+
 import Cookies from "universal-cookie"
 const cookies = new Cookies();
 
 const url = import.meta.env.VITE_APP_URL
 const fronturl = import.meta.env.VITE_APP_FRONT_URL
-const credentials = import.meta.env.VITE_APP_CREDENTIALS
 
 export function isResponseOk(response) {
     // console.log(response)
@@ -25,7 +26,7 @@ export function codeAuth(code) {
             "Content-Type": "application/json",
             "X-CSRFToken": cookies.get("csrftoken"),
         },
-        credentials: credentials,
+        credentials: import.meta.env.PROD ? "same-origin" : "include",
         body: JSON.stringify({ code: code }),
     }).then(isResponseOk)
         .then((data) => {
@@ -50,3 +51,111 @@ export function spotifyAuth() {
         });
     return result;
 };
+
+export async function fetchArtists(setBadArtistsArray) {
+
+    await fetch(`${url}/api/artists/`, {
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": cookies.get("csrftoken"),
+        },
+        credentials: import.meta.env.PROD ? "same-origin" : "include",
+    })
+        .then(isResponseOk)
+        .then((data) => {
+            console.log(data)
+            let array = data.artists
+            if (array) {
+                array.sort()
+                setBadArtistsArray(array)
+            }
+        })
+}
+
+export async function removeArtist(e, item, setBadArtistsArray) {
+
+    e.preventDefault();
+    await fetch(`${url}/api/artists/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": cookies.get("csrftoken"),
+        },
+        credentials: import.meta.env.PROD ? "same-origin" : "include",
+        body: JSON.stringify({ remove: item }),
+    })
+        .then(isResponseOk)
+        .then((data) => {
+            console.log(data)
+            let array = data.artists
+            if (array) {
+                array.sort()
+                setBadArtistsArray(array)
+            }
+        })
+}
+
+export function signup(e, email, password, setIsAuthenticated, setEmail, setPassword, setError, from, navigate) {
+    e.preventDefault();
+    fetch(`${url}/api/signup/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email, password: password }),
+    })
+        .then(isResponseOk)
+        .then((data) => {
+            console.log(data);
+            setIsAuthenticated(true)
+            setEmail('')
+            setPassword('')
+            setError('')
+            navigate(from, { replace: true });
+        })
+        .catch((err) => {
+            setError(err.toString());
+            console.log(err);
+        })
+}
+
+export function login(e, email, password, setIsAuthenticated, setEmail, setPassword, setError, from, navigate) {
+    e.preventDefault();
+    fetch(`${url}/api/login/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: import.meta.env.PROD ? "same-origin" : "include",
+        body: JSON.stringify({ email: email, password: password }),
+    })
+        .then(isResponseOk)
+        .then((data) => {
+            console.log(data);
+            setIsAuthenticated(true)
+            setEmail('')
+            setPassword('')
+            setError('')
+            navigate(from, { replace: true });
+        })
+        .catch((err) => {
+            setError(err.toString());
+            console.log(err);
+        })
+}
+
+export function getAccessToken(setAccessToken) {
+
+    fetch(`${url}/api/me/`, {
+    headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": cookies.get("csrftoken"),
+    },
+    credentials: import.meta.env.PROD ? "same-origin" : "include",
+})
+    .then(isResponseOk)
+    .then((data) => {
+        console.log('access token retrieved')
+        setAccessToken(data.access_token)
+    })
+}
