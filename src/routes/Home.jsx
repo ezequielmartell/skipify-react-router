@@ -9,6 +9,7 @@ import AuthorizeComponent from '../components/buttonAuthorize';
 import BoycottStateComponent from "../components/componentBoycottState";
 import SkipAnotherArtistComponent from "../components/componentSkipAnotherArtist";
 import BoycottListComponent from "../components/componentBoycottList";
+import PlayerComponent from "../components/componentPlayer";
 // import { getSession } from '../utils/Auth';
 
 
@@ -23,6 +24,7 @@ function Home() {
       <AuthorizeComponent />
       <LogoutComponent />
       <SkipAnotherArtistComponent />
+      <PlayerComponent />
       <BoycottListComponent />
     </div>
   )

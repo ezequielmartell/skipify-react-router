@@ -39,7 +39,7 @@ function BoycottStateComponent() {
     })
       .then(isResponseOk)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBoycottState(data.boycott)
       });
   }
