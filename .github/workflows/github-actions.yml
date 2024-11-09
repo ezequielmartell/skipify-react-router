@@ -10,9 +10,17 @@ permissions:
         contents: read  # This is required for actions/checkout
 
 jobs:
+  deploy_infra:
+    name: Trigger Infrastructure Deployment Workflow
+    uses: ezequielmartell/skipify-aws-infrastructure/.github/workflows/deploy_infra.yml@main
+    with:
+      sha: ${{ github.sha }}
+      type: "frontend"
+
   build:
       name: Build and Push
       runs-on: ubuntu-latest
+      needs: deploy_infra
       steps:
       
       - name: Checkout repo
@@ -32,16 +40,22 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: django-aws-frontend
+          SHA: ${{ github.sha }}
         run: |
-          docker build -t $REGISTRY/$REPOSITORY .
+          echo "############################################"
+          echo "#######        Building Image         ######"
+          echo "############################################"
+          docker build -t $REGISTRY/$REPOSITORY:$SHA .
           echo "############################################"
           echo "#######  Pushing image to Amazon ECR  ######"
           echo "############################################"
-          docker push $REGISTRY/$REPOSITORY
+          docker push $REGISTRY/$REPOSITORY:$SHA
   deploy:
     name: Create Deployment
     runs-on: ubuntu-latest
-    needs: build
+    needs: 
+      - build
+      - deploy_infra
     steps:
       
       - name: Checkout repo
@@ -52,6 +66,8 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::637423655132:role/github-actions_role
           aws-region: us-east-2
-      - run: |
-          echo "Creating deployment for Frontend Service"
-          aws deploy create-deployment --cli-input-yaml file://codedeploy/appspec.yaml
+      - name: CLI Deployment
+        run: |
+            echo "Creating deployment for frontend service."
+            aws deploy create-deployment --cli-input-json '{"applicationName":"frontend_deployment","deploymentGroupName":"frontend-deploy-group","revision":{"revisionType":"AppSpecContent","appSpecContent":{"content":"{\"version\":0.0,\"Resources\":[{\"TargetService\":{\"Type\":\"AWS::ECS::Service\",\"Properties\":{\"TaskDefinition\":\"'${{ needs.deploy_infra.outputs.task_def_arn }}'\",\"LoadBalancerInfo\":{\"ContainerName\":\"prod-frontend-web\",\"ContainerPort\":80}}}}]}"}}}'           
+  
