@@ -12,6 +12,8 @@ COPY . .
 RUN npm run build
 # Use Nginx as the production server
 FROM nginx:alpine
+# Remove the default.conf file that comes with the Nginx image
+RUN rm /etc/nginx/conf.d/default.conf
 # Copy the built React app to Nginx's web server directory
 COPY --from=build /app/dist /usr/share/nginx/html
 # Copy the custom nginx.conf into the container
