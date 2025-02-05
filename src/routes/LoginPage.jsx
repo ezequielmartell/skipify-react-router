@@ -22,34 +22,36 @@ function LoginPage() {
     function handleEmail(e) {
         setEmail(e.target.value);
     }
-    
+
     return (
         <div>
-            <h2>Spotify Artist Boycotting Service</h2>
-            <h3>Login</h3>
-            <h4>Please log in to continue.</h4>
+            <h1>Spotify Artist Boycotting Service</h1>
+            <h2>Login</h2>
+            <h3>Please log in to continue.</h3>
+            <h4>Otherwise, sign up below </h4>
+            <form>
+                <div className="form-group">
+                    <label>Email:</label>
+                    <input type="text" name="email" value={email} onChange={handleEmail} />
+                </div>
 
-            <div>
-                <form>
+                <div className="form-group">
+                    <label>Password:</label>
+                    <input type="password" name="password" value={password} onChange={handlePassword} />
+                </div>
+
+                {error &&
                     <div>
-                        <label htmlFor="email">Email:&nbsp;</label>
-                        <input type="text" id="email" name="email" value={email} onChange={handleEmail} />
+                        <small>
+                            {error}
+                        </small>
                     </div>
-                    <div>
-                        <label>Password:&nbsp;&nbsp;</label>
-                        <input type="password" id="password" name="password" value={password} onChange={handlePassword} />
-                        {error &&
-                            <div>
-                                <small>
-                                    {error}
-                                </small>
-                            </div>
-                        }
-                    </div>
+                }
+                <div className="button-group">
                     <button onClick={(e) => login(e, email, password, setIsAuthenticated, setEmail, setPassword, setError, from, navigate)}>Login</button>
                     <button onClick={(e) => signup(e, email, password, setIsAuthenticated, setEmail, setPassword, setError, from, navigate)}>SignUp</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     )
 }

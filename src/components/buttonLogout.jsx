@@ -25,9 +25,9 @@ function LogoutComponent() {
             });
     }
 
-    return (<li>
+    return (
         <button onClick={logout}>Logout</button>
-    </li>)
+    )
 }
 
 export default LogoutComponent;

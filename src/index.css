@@ -11,6 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-top: 20vh;
 }
 
 a {
@@ -18,6 +19,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -28,11 +30,34 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 h1 {
-  font-size: 3.2em;
+  /* font-size: 3.2em; */
   line-height: 1.1;
+  text-align: center;
+}
+
+h2 {
+  /* font-size: 1.5em; */
+  line-height: 1.1;
+  text-align: center;
+}
+
+h3 {
+  /* font-size: 1.25em; */
+  line-height: 1.1;
+  text-align: center;
+}
+
+h4 {
+  /* font-size: .9em; */
+  line-height: 1.1;
+  text-align: center;
 }
 
 button {
@@ -46,9 +71,21 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  /* Center the buttons */
+  gap: 10px;
+  /* Add space between buttons */
+  margin-top: 10px;
+  /* Add spacing from the inputs */
+}
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -59,10 +96,113 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+/* .centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+
+form {
+  width: 100%;
+  max-width: 300px;
+  /* Adjust as needed */
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.form-group label {
+  flex: 1;
+  /* Take up available space on the left */
+  text-align: left;
+}
+
+.form-group button {
+  flex: 1;
+  text-align: right;
+  padding: 5px;
+  max-width: fit-content;
+}
+
+.form-group input {
+  flex: 2;
+  /* Take up more space on the right */
+  text-align: right;
+  padding: 5px;
+}
+
+home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.boycott-state {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
+.home-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.home-group left {
+  flex: 1;
+  /* Take up available space on the left */
+  text-align: left;
+}
+
+.home-group right {
+  flex: 2;
+  /* Take up more space on the right */
+  text-align: right;
+  padding: 5px;
+}
+
+
+.home-form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.home-form-group input {
+  flex: 1;
+  /* Take up available space on the left */
+  text-align: right;
+  max-width: 115px;
+}
+
+.home-form-group button {
+  flex: 1;
+  text-align: right;
+  max-width: fit-content;
+  white-space: nowrap; 
+  width: 150px; /* Adjust width as needed */
+  padding: 8px 16px;
 }

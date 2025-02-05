@@ -20,12 +20,20 @@ function Home() {
   return (
     <div>
       <h1>Spotify Artist Boycotting Service Home</h1>
-      <BoycottStateComponent />
+      <div className="home-group">
+        <div className="home-group-left">
+      <div className="button-group">
       <AuthorizeComponent />
       <LogoutComponent />
+      </div>
+           <BoycottStateComponent />
       <SkipAnotherArtistComponent />
+      </div>
+      <div className="home-group-right">
       <PlayerComponent />
       <BoycottListComponent />
+    </div>
+    </div>
     </div>
   )
 };

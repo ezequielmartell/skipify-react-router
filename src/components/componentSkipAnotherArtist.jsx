@@ -19,18 +19,23 @@ function SkipAnotherArtistComponent() {
   }
 
   return (
-    <div>
-      <form>
-        {/* <form onSubmit={()=>appendArtist}> */}
-        <div>
-          <label >Start Skipping another artist? </label>
-          <input type="text" id="artist" onChange={handleNewArtist} />
-          {/* <button type="submit">StartSkipping!</button> */}
-          <button onClick={(e) => appendArtist(e, newArtist, badArtistsArray, setBadArtistsArray)}>StartSkipping!</button>
+    // <form>
+    //           <div className="form-group">
+    //     <label>Start Skipping another artist?</label>
+    //     <input type="text" id="artist" onChange={handleNewArtist} />
+    //   </div>
+    //   <div className="button-group">
 
-        </div>
-      </form>
-    </div>
+    //     <button onClick={(e) => appendArtist(e, newArtist, badArtistsArray, setBadArtistsArray)}>StartSkipping!</button>
+    //     </div>
+    //     </form>
+    <form>
+      <div className="home-form-group">
+        {/* <label>Start Skipping another artist?</label> */}
+        <input type="text" id="artist" onChange={handleNewArtist} />
+        <button onClick={(e) => appendArtist(e, newArtist, badArtistsArray, setBadArtistsArray)}>Skip Another?</button>
+      </div>
+    </form>
   )
 
 }

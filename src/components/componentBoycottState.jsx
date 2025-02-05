@@ -46,7 +46,7 @@ function BoycottStateComponent() {
   useEffect(() => { getBoycottState() }, [])
 
   return (
-    <label>
+    <label className="boycott-state">
       Service Enabled: {String(boycottState)}&nbsp;
       <button onClick={() => handleBoycott(!boycottState)}>Toggle</button>
     </label>
