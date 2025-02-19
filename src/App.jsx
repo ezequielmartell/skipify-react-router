@@ -16,7 +16,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/me" element={<RequireAuth><Me /></RequireAuth>} />

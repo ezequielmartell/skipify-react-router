@@ -27,8 +27,8 @@ function LoginPage() {
         <div>
             <h1>Spotify Artist Boycotting Service</h1>
             <h2>Login</h2>
-            <h3>Please log in to continue.</h3>
-            <h4>Otherwise, sign up below </h4>
+            <h3>Please log in to continue</h3>
+            <h4>Or sign up below </h4>
             <form>
                 <div className="form-group">
                     <label>Email:</label>
